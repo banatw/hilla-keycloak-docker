@@ -16,7 +16,7 @@ export default function AdminIndex() {
         <>
             <h1>Admin Page</h1>
             <Button onClick={async ()=> {
-                 await AdminService.tesAdmin().then(data => console);
+                 await AdminService.tesAdmin().then(data => Notification.show(data));
                  
             }}>Tes</Button>
         </>

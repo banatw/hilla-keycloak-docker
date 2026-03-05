@@ -33,26 +33,33 @@ services:
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "7080:7080"
-      - "7443:7443"
+      # - "7443:7443"
     restart: always
     depends_on:
       - postgres
+      - mailpit
     # networks:
     #   - keycloak_network
   
-  mailhog:
-    image: mailhog/mailhog
-    # Optional: disable chatty logs if not needed
-    logging:
-      driver: 'none'
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    restart: unless-stopped
     ports:
-      # Map the SMTP port (1025) to your host
-      - "1025:1025"
-      # Map the Web UI port (8025) to your host
-      - "8025:8025"
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP port
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATA_FILE: /data/mailpit.db
+    volumes:
+      - mailpit_data:/data
+    # networks:
+    #   - keycloak_network
 
 volumes:
   postgres_data:
+    driver: local
+  mailpit_data:
     driver: local
 
 # networks:

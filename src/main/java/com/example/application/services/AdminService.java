@@ -13,8 +13,8 @@ import jakarta.annotation.security.RolesAllowed;
 public class AdminService {
 
     @NonNull
-    public Optional<String> tesAdmin() {
-        return Optional.of("ADMIN");
+    public String tesAdmin() {
+        return "ADMIN";
     }
     
 }
