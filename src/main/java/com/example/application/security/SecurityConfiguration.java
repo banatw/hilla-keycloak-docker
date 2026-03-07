@@ -69,10 +69,13 @@ public class SecurityConfiguration {
                     // log.info("username : " + userInfo.getPreferredUsername());
 
                     // ===tes bana====
-                    roles.stream().forEach(r -> {
-                        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(r);
-                        mappedAuthorities.add(simpleGrantedAuthority);
-                    });
+                    if(roles != null){
+                        roles.stream().forEach(r -> {
+                            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(r);
+                            mappedAuthorities.add(simpleGrantedAuthority);
+                        });
+                    }
+                    
                     //  ===end tes bana====
                     
                     // kalo Role ngambil dari tabel database

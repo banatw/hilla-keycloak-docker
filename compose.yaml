@@ -34,7 +34,7 @@ services:
     ports:
       - "7080:7080"
       # - "7443:7443"
-    restart: always
+    # restart: always
     depends_on:
       - postgres
       - mailpit
