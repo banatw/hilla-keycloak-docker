@@ -1,4 +1,3 @@
-@NonNullApi
+@jakarta.annotation.Nonnull
 package com.example.application.services;
 
-import org.springframework.lang.NonNullApi;

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.example.application.data.UserApp;
+import com.example.application.data.UserAppRepository;
 import com.vaadin.flow.spring.security.VaadinAwareSecurityContextHolderStrategyConfiguration;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Import(VaadinAwareSecurityContextHolderStrategyConfiguration.class)
 @Slf4j
 public class SecurityConfiguration {
+    private final UserAppRepository userAppRepository;
+
+    
+
+    public SecurityConfiguration(UserAppRepository userAppRepository) {
+        this.userAppRepository = userAppRepository;
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -69,12 +78,12 @@ public class SecurityConfiguration {
                     // log.info("username : " + userInfo.getPreferredUsername());
 
                     // ===tes bana====
-                    if(roles != null){
-                        roles.stream().forEach(r -> {
-                            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(r);
-                            mappedAuthorities.add(simpleGrantedAuthority);
-                        });
-                    }
+                    // if(roles != null){
+                    //     roles.stream().forEach(r -> {
+                    //         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(r);
+                    //         mappedAuthorities.add(simpleGrantedAuthority);
+                    //     });
+                    // }
                     
                     //  ===end tes bana====
                     
@@ -83,8 +92,11 @@ public class SecurityConfiguration {
                     // uncomment tes bana2
 
                     // =======tes bana2====
-                    // KeycloakUserAppRoleMapper keycloakUserAppRoleMapper = keyCloakUserRoleMapperService.getUser(userInfo.getPreferredUsername());
-                    // mappedAuthorities.add(new SimpleGrantedAuthority(keycloakUserAppRoleMapper.getRole()));
+                    UserApp userApp = userAppRepository.findById(userInfo.getPreferredUsername()).get();
+                    userApp.getRoles().stream().forEach(role -> {
+                        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + role.name());
+                        mappedAuthorities.add(simpleGrantedAuthority);
+                    });
                     // ===== end tes bana2====
 
                     // mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));

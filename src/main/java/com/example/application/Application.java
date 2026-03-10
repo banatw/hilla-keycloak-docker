@@ -1,12 +1,19 @@
 package com.example.application;
 
+import com.example.application.services.UserKeycloakService;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import java.util.List;
+
+import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * The entry point of the Spring Boot application.
@@ -19,8 +26,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @StyleSheet(Lumo.STYLESHEET)
 @StyleSheet(Lumo.UTILITY_STYLESHEET)
 public class Application implements AppShellConfigurator {
+    
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+    
+    
 }

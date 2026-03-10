@@ -15,6 +15,20 @@ services:
     # networks:
     #   - keycloak_network
 
+  # postgres2:
+  #   image: postgres:15-alpine
+  #   volumes:
+  #     - postgres_data2:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB2}
+  #     POSTGRES_USER: ${POSTGRES_USER2}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD2}
+  #     POSTGRES_PORT: 5432
+  #   ports:
+  #     - "5433:5432"
+    # networks:
+    #   - keycloak_network
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.2.4
     command: ["start-dev", "--http-port", "7080", "--https-port", "7443"]
@@ -59,6 +73,8 @@ services:
 volumes:
   postgres_data:
     driver: local
+  # postgres_data2:
+  #   driver: local
   mailpit_data:
     driver: local
 
